@@ -1,0 +1,8 @@
+services:
+  _defaults:
+    autowire: true
+
+  ZeebeTransportBundle\Messenger\Transport\TransportFactory:
+    tags: ['messenger.transport_factory']
+
+

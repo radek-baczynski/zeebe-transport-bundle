@@ -1,0 +1,64 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "97637daddfa9b6c045c9f4c82bc438f3",
+    "packages": [
+        {
+            "name": "radek-baczynski/zeebe-php-client",
+            "version": "v0.20.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/radek-baczynski/zeebe-php-client.git",
+                "reference": "d024234c850ae141c540300ef7df3c9518da9a09"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/radek-baczynski/zeebe-php-client/zipball/d024234c850ae141c540300ef7df3c9518da9a09",
+                "reference": "d024234c850ae141c540300ef7df3c9518da9a09",
+                "shasum": ""
+            },
+            "require": {
+                "ext-grpc": "*",
+                "ext-protobuf": "*",
+                "php": ">=5.3.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ZeebeClient\\": "src/ZeebeClient"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Radek Baczyński",
+                    "email": "radek.baczynski@gmail.com"
+                }
+            ],
+            "description": "PHP Client for zeebe workflow engine (https://zeebe.io)",
+            "homepage": "https://github.com/radek-baczynski/zeebe-php-client",
+            "keywords": [
+                "Microservice",
+                "bpmn",
+                "orchestration",
+                "workflow",
+                "zeebe"
+            ],
+            "time": "2019-08-05T19:28:09+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
