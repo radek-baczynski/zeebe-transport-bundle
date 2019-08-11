@@ -72,4 +72,12 @@ class ZeebeStamp implements StampInterface
         );
     }
 
+    /**
+     * @return int
+     */
+    public function getRetries(): int
+    {
+        return $this->retries;
+    }
+
 }

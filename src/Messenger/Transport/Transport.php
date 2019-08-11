@@ -116,8 +116,15 @@ class Transport implements TransportInterface
     {
         /** @var TransportMessageIdStamp $idStamp */
         $idStamp = $envelope->last(TransportMessageIdStamp::class);
+        /** @var ZeebeStamp $zeebeStamp */
+        $zeebeStamp = $envelope->last(ZeebeStamp::class);
 
-        $this->connection->failJob($idStamp->getId());
+        $retries = $zeebeStamp ? $zeebeStamp->getRetries() - 1 : 0;
+
+        $this->connection->failJob(
+            $idStamp->getId(),
+            $retries
+        );
     }
 
     /**
@@ -183,7 +190,7 @@ class Transport implements TransportInterface
             $payload
         );
 
-        $stampId = new TransportMessageIdStamp();
+        $stampId = new TransportMessageIdStamp;
 
         return $envelope->with($stampId);
     }

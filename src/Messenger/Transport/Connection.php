@@ -82,11 +82,11 @@ class Connection
         return $rsp;
     }
 
-    public function failJob(string $key)
+    public function failJob(string $key, int $retries)
     {
         $failRequest = new FailJobRequest([
-            'jobKey' => $key,
-
+            'jobKey'  => $key,
+            'retries' => $retries,
         ]);
 
         [$rsp, $status] = $this->client->FailJob($failRequest)->wait();
