@@ -19,7 +19,7 @@ use ZeebeClient\PublishMessageRequest;
 use ZeebeClient\PublishMessageResponse;
 use ZeebeTransportBundle\Messenger\Transport\Exception\ZeebeException;
 
-class Connection
+class ZeebeConnection
 {
     /** @var GatewayClient */
     private $client;
@@ -90,6 +90,10 @@ class Connection
         ]);
 
         [$rsp, $status] = $this->client->FailJob($failRequest)->wait();
+
+        if ($status->code != 0) {
+            throw new ZeebeException($status->details, $status->code);
+        }
     }
 
     public function createWorkflow($bpmnProcessId, int $version, string $payload): ?CreateWorkflowInstanceResponse
@@ -102,6 +106,10 @@ class Connection
 
         [$rsp, $status] = $this->client->CreateWorkflowInstance($createRequest)->wait();
 
+        if ($status->code != 0) {
+            throw new ZeebeException($status->details, $status->code);
+        }
+
         return $rsp;
     }
 
@@ -109,11 +117,13 @@ class Connection
         string $name,
         string $correlationKey,
         int $timeToLive,
+        string $messageId,
         string $variables
     ): PublishMessageResponse {
         $messageRequest = new PublishMessageRequest([
             'name'           => $name,
             'correlationKey' => $correlationKey,
+            'messageId'      => $messageId,
             'timeToLive'     => $timeToLive,
             'variables'      => $variables,
         ]);

@@ -7,7 +7,7 @@ namespace ZeebeTransportBundle\Messenger\Message;
 use Symfony\Component\Messenger\Stamp\StampInterface;
 use ZeebeClient\ActivatedJob;
 
-class ZeebeStamp implements StampInterface
+class ZeebeReceiveStamp implements StampInterface
 {
     private $key = 0;
     private $type = '';

@@ -6,7 +6,7 @@ use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 use Symfony\Component\Messenger\Transport\TransportInterface;
 
-class TransportFactory implements TransportFactoryInterface
+class ZeebeTransportFactory implements TransportFactoryInterface
 {
     /** @var \Symfony\Component\Serializer\SerializerInterface */
     private $symfonySerializer;
@@ -20,8 +20,8 @@ class TransportFactory implements TransportFactoryInterface
     {
         $dsn = parse_url($dsn);
 
-        return new Transport(
-            new Connection($dsn['host'], (int)$dsn['port']),
+        return new ZeebeTransport(
+            new ZeebeConnection($dsn['host'], (int)$dsn['port']),
             $this->symfonySerializer,
             $options
         );
