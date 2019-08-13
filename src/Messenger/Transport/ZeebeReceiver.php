@@ -1,19 +1,30 @@
 <?php
 
-
 namespace ZeebeTransportBundle\Messenger\Transport;
-
 
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\TransportException;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
 use Symfony\Component\Messenger\Stamp\TransportMessageIdStamp;
 use Symfony\Component\Messenger\Transport\Receiver\ReceiverInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 use ZeebeTransportBundle\Messenger\Message\ZeebeReceiveStamp;
 use ZeebeTransportBundle\Messenger\Transport\Exception\ZeebeException;
 
 class ZeebeReceiver implements ReceiverInterface
 {
+    /** @var ZeebeConnection */
+    private $connection;
+    /**
+     * @var SerializerInterface
+     */
+    private $serializer;
+
+    public function __construct(ZeebeConnection $connection, SerializerInterface $serializer)
+    {
+        $this->connection = $connection;
+        $this->serializer = $serializer;
+    }
 
     public function get(): iterable
     {

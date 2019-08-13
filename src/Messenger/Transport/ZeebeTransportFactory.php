@@ -19,7 +19,6 @@ class ZeebeTransportFactory implements TransportFactoryInterface
     public function createTransport(string $dsn, array $options, SerializerInterface $serializer): TransportInterface
     {
         $dsn = parse_url($dsn);
-
         return new ZeebeTransport(
             new ZeebeConnection($dsn['host'], (int)$dsn['port']),
             $this->symfonySerializer,
