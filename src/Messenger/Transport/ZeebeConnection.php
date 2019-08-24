@@ -13,10 +13,13 @@ use ZeebeClient\CompleteJobRequest;
 use ZeebeClient\CompleteJobResponse;
 use ZeebeClient\CreateWorkflowInstanceRequest;
 use ZeebeClient\CreateWorkflowInstanceResponse;
+use ZeebeClient\DeployWorkflowRequest;
+use ZeebeClient\DeployWorkflowResponse;
 use ZeebeClient\FailJobRequest;
 use ZeebeClient\GatewayClient;
 use ZeebeClient\PublishMessageRequest;
 use ZeebeClient\PublishMessageResponse;
+use ZeebeClient\WorkflowRequestObject;
 use ZeebeTransportBundle\Messenger\Transport\Exception\ZeebeException;
 
 class ZeebeConnection
@@ -105,6 +108,27 @@ class ZeebeConnection
         ]);
 
         [$rsp, $status] = $this->client->CreateWorkflowInstance($createRequest)->wait();
+
+        if ($status->code != 0) {
+            throw new ZeebeException($status->details, $status->code);
+        }
+
+        return $rsp;
+    }
+
+    public function deployWorkflow(string $name, string $type, string $definition): ?DeployWorkflowResponse
+    {
+        $deployRequest = new DeployWorkflowRequest([
+            'workflows' => [
+                new WorkflowRequestObject([
+                    'name'       => $name,
+                    'type'       => 1,
+                    'definition' => $definition,
+                ]),
+            ],
+        ]);
+
+        [$rsp, $status] = $this->client->DeployWorkflow($deployRequest)->wait();
 
         if ($status->code != 0) {
             throw new ZeebeException($status->details, $status->code);

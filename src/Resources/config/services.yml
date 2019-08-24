@@ -5,4 +5,7 @@ services:
   ZeebeTransportBundle\Messenger\Transport\ZeebeTransportFactory:
     tags: ['messenger.transport_factory']
 
+  ZeebeTransportBundle\Command\WorkflowDeployCommand:
+    tags: ['console.command']
+
 
